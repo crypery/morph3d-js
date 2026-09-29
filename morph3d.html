@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Morph3D</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        #morph3d {
+            display: block;
+        }
+        #themeToggle {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            padding: 6px 14px;
+            font-size: 14px;
+            font-family: sans-serif;
+            border: 1px solid #888888;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #222222;
+            cursor: pointer;
+        }
+        #themeToggle:hover {
+            filter: brightness(0.95);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="morph3d"></canvas>
+    <button id="themeToggle" type="button">Dark</button>
+    <script src="morph3d.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            const btn = document.getElementById('themeToggle');
+            function update() {
+                const theme = window.morph3dGetTheme();
+                const dark = theme === 'Dark';
+                btn.textContent = dark ? 'Light' : 'Dark';
+                btn.style.background = dark ? 'rgba(30, 30, 30, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+                btn.style.color = dark ? '#dddddd' : '#222222';
+                btn.style.borderColor = dark ? '#555555' : '#888888';
+            }
+            btn.addEventListener('click', function () {
+                window.morph3dSetTheme(window.morph3dGetTheme() === 'Light' ? 'Dark' : 'Light');
+                update();
+            });
+            update();
+        })();
+    </script>
+</body>
+</html>
